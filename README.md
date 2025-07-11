@@ -73,6 +73,7 @@ A user-friendly chat UI (command line or web) that guides users through trip pla
 
 ## 🗂️ **Project Folder Structure**
 
+```bash
 AI_Travel_Designer_Agent/
 │
 ├── tool/                        # All agent modules for travel planning
