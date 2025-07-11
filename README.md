@@ -44,7 +44,6 @@
 
 ## ⚙️ **Quick Setup**
 
-```bash
 # Install uv (Python package manager)
 pip install uv
 
@@ -56,9 +55,6 @@ uv shell
 uv pip install openai chainlit python-dotenv
 Create a .env file in the root of your project:
 
-ini
-Copy
-Edit
 # .env
 GEMINI_API_KEY="your_gemini_api_key_here"
 🔧 How It Works
@@ -76,9 +72,7 @@ Coordinates the conversation flow by calling the appropriate agents based on use
 A user-friendly chat UI (command line or web) that guides users through trip planning step-by-step using Chainlit.
 
 🗂️ Project Folder Structure
-bash
-Copy
-Edit
+
 AI_Travel_Designer_Agent/
 │
 ├── agents/
@@ -111,16 +105,8 @@ Once deployed, simply share the live link with anyone for instant access!
 🖼️ Logo (Optional)
 You can create a simple project logo using Canva or Looka, and add it at the top of your README using:
 
-markdown
-Copy
-Edit
 ![AI Travel Designer Agent](./assets/logo.png)
 💡 Final Words
 Travel smarter with the power of AI — one conversation at a time.
 From wanderlust to boarding pass, your journey starts here. ✨
 
-css
-Copy
-Edit
-
-Let me know if you want this converted into a live preview page (`HTML` version), or want a **Canva logo template suggestion**!
