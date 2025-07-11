@@ -93,6 +93,7 @@ AI_Travel_Designer_Agent/
 ├── requirements.txt             # Project dependencies
 ├── README.md                    # Project documentation
 
+```bash
 📌 Feel free to customize or expand the agents as needed.
 
 🌐 Live Demo
