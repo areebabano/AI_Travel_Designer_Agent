@@ -71,24 +71,26 @@ Coordinates the conversation flow by calling the appropriate agents based on use
 💬 Chainlit Interface
 A user-friendly chat UI (command line or web) that guides users through trip planning step-by-step using Chainlit.
 
+## 🗂️ **Project Folder Structure**
+
 AI_Travel_Designer_Agent/
 │
-├── 🔧 tool/                     # All agent modules for travel planning
+├── tool/                        # All agent modules for travel planning
 │   ├── destination_agent.py     # Suggests destinations based on user input
 │   ├── explore_agent.py         # Recommends attractions and food options
 │   ├── booking_agent.py         # Handles mock booking logic
 │   └── __init__.py              # Initializes the tool package
 │
-├── 🧠 core/                     # Central logic to orchestrate all agents
+├── core/                        # Central logic to orchestrate all agents
 │   └── travel_companion_agent.py
 │
-├── 💬 ui/                       # Chainlit-based user interface
+├── ui/                          # Chainlit-based user interface
 │   └── chainlit_app.py          # Entry point for the chat UI
 │
-├── 🔐 .env                      # Environment file to store API keys
-├── 🚀 main.py                   # Main file to launch the application
-├── 📦 requirements.txt          # Project dependencies
-├── 📘 README.md                 # Project documentation
+├── .env                         # Environment file to store API keys
+├── main.py                      # Main file to launch the application
+├── requirements.txt             # Project dependencies
+├── README.md                    # Project documentation
 
 📌 Feel free to customize or expand the agents as needed.
 
