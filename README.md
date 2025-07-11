@@ -1,7 +1,6 @@
 # 🌍 **AI Travel Designer Agent**  
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
 [![Chainlit](https://img.shields.io/badge/Chainlit-UI-purple?logo=chainlit&logoColor=white)](https://docs.chainlit.io/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-UI-green?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-Agent-orange?logo=openai&logoColor=white)](https://platform.openai.com/)
 [![MIT License](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
 
