@@ -1,118 +1,70 @@
-# 🌍 **AI Travel Designer Agent**  
-[![Python](https://img.shields.io/badge/python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![Chainlit](https://img.shields.io/badge/Chainlit-UI-purple?logo=chainlit&logoColor=white)](https://docs.chainlit.io/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-Agent-orange?logo=openai&logoColor=white)](https://platform.openai.com/)
-[![MIT License](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
+# Travel Designer Agent
 
-✨ **Your intelligent, interactive travel companion — designed to make every journey unforgettable.**
+Welcome to the **Travel Designer Agent**, your AI-powered travel planning assistant!
+
+## Overview
+
+This project uses multiple specialized AI agents to create a seamless travel planning experience via conversational interface.
+
+### Key Features
+
+- **TravelPlannerAgent:** Main agent that understands user mood and preferences, then delegates tasks.
+- **DestinationAgent:** Suggests specific travel destinations based on user interests.
+- **BookingAgent:** Provides flight and hotel options by using dedicated tools.
+- **ExploreAgent:** Recommends local attractions, activities, and foods for the chosen destination.
+- **Tools:**  
+  - `get_flights(destination)`: Returns mock flight details.  
+  - `suggest_hotels(destination)`: Returns mock hotel suggestions.
+
+## How It Works
+
+1. **User Input:** The user describes their travel mood or needs.
+2. **TravelPlannerAgent:** Determines which specialized agent to delegate the query.
+3. **Agents & Tools:**  
+   - DestinationAgent suggests travel spots.  
+   - BookingAgent uses tools to fetch flight and hotel options.  
+   - ExploreAgent offers local highlights.
+4. **Response:** User receives tailored travel advice and booking info.
+
+## Setup
+
+1. Clone the repository.
+2. Create and activate a Python virtual environment.
+3. Install dependencies:
+pip install -r requirements.txt
+
+markdown
+Copy
+Edit
+4. Configure your `.env` file with required API keys.
+5. Run the application:
+chainlit run main.py
+
+shell
+Copy
+Edit
+
+## Example Interaction
+
+🌍 Welcome to the Travel Planner! Tell me how you're feeling or what kind of trip you'd like.
+
+I want a relaxing nature vacation.
+(DestinationAgent suggests Bali, Swiss Alps, or Kyoto.)
+Can you find flights and hotels to Switzerland?
+(BookingAgent calls tools and returns flight and hotel info.)
+What are some top places to visit and eat in Tokyo?
+(ExploreAgent lists attractions and local foods.)
+
+yaml
+Copy
+Edit
+
+## Contribution
+
+Feel free to contribute by opening issues or pull requests!
 
 ---
 
-## 🧠 **Overview**
+## License
 
-**AI Travel Designer Agent** is a smart, AI-powered travel assistant that helps you dream, plan, and explore the world — right from your terminal or web interface. Whether you’re picking a destination, booking mock flights and hotels, or discovering local attractions and food, this agent is your one-stop solution for all things travel.
-
-> _“Travel isn’t always pretty. It isn’t always comfortable... But that’s okay. The journey changes you; it should change you.”_  
-> — **Anthony Bourdain**
-
----
-
-## 🚀 **Features at a Glance**
-
-| ✨ **Feature**                  | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| ✈️ **Destination Suggestions** | Personalized places based on your mood, region, and season.                    |
-| 🏨 **Mock Booking Assistant**  | Offers mock flights and hotels tailored to your schedule and budget.           |
-| 🍽️ **Explore Attractions & Food** | Discover top attractions and must-try local dishes.                         |
-| 🤖 **Multi-Agent Coordination** | Combines Destination, Explore, and Booking agents for seamless planning.       |
-| 💬 **Interactive Chat UI**     | Plan your trip through an intuitive CLI or web-based Chainlit interface.       |
-| 🔑 **Powered by Gemini API**   | Leverages Google Gemini 2.0 Flash model for intelligent, real-time responses.  |
-
----
-
-## 📋 **Getting Started**
-
-### ✅ **Prerequisites**
-
-- Python **3.10+**
-- **Chainlit** for chat interface
-- **OpenAI SDK** with Gemini support
-- `python-dotenv` for managing environment variables
-- A **Gemini API Key** from [Google AI Studio](https://aistudio.google.com/)
-
----
-
-## ⚙️ **Quick Setup**
-
-# Install uv (Python package manager)
-pip install uv
-
-# Create and activate virtual environment
-uv venv
-uv shell
-
-# Install required libraries
-uv pip install openai chainlit python-dotenv
-Create a .env file in the root of your project:
-
-# .env
-GEMINI_API_KEY="your_gemini_api_key_here"
-🔧 How It Works
-🧩 Agents Architecture
-DestinationAgent – Recommends locations based on mood, season, and region.
-
-ExploreAgent – Suggests attractions and cuisine for selected cities.
-
-BookingAgent – Provides mock bookings for flights and hotels.
-
-🧠 Core Orchestrator
-Coordinates the conversation flow by calling the appropriate agents based on user queries for a smooth, intelligent response.
-
-💬 Chainlit Interface
-A user-friendly chat UI (command line or web) that guides users through trip planning step-by-step using Chainlit.
-
-## 🗂️ **Project Folder Structure**
-
-```bash
-AI_Travel_Designer_Agent/
-│
-├── tool/                        # All agent modules for travel planning
-│   ├── destination_agent.py     # Suggests destinations based on user input
-│   ├── explore_agent.py         # Recommends attractions and food options
-│   ├── booking_agent.py         # Handles mock booking logic
-│   └── __init__.py              # Initializes the tool package
-│
-├── core/                        # Central logic to orchestrate all agents
-│   └── travel_companion_agent.py
-│
-├── ui/                          # Chainlit-based user interface
-│   └── chainlit_app.py          # Entry point for the chat UI
-│
-├── .env                         # Environment file to store API keys
-├── main.py                      # Main file to launch the application
-├── requirements.txt             # Project dependencies
-├── README.md                    # Project documentation
-
-```bash
-📌 Feel free to customize or expand the agents as needed.
-
-🌐 Live Demo
-🚧 Coming Soon!
-You’ll be able to deploy your app on:
-
-🌐 Vercel
-
-☁️ Render
-
-🤗 Hugging Face Spaces
-
-Once deployed, simply share the live link with anyone for instant access!
-
-🖼️ Logo (Optional)
-You can create a simple project logo using Canva or Looka, and add it at the top of your README using:
-
-![AI Travel Designer Agent](./assets/logo.png)
-💡 Final Words
-Travel smarter with the power of AI — one conversation at a time.
-From wanderlust to boarding pass, your journey starts here. ✨
-
+[MIT License](LICENSE)
