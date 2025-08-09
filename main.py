@@ -1,121 +1,50 @@
-# # main.py
-
-# import os
-
-# from travel_agents.main_travel_agent import TravelPlannerAgent
-
-# from dotenv import load_dotenv  # Load environment variables from .env file
-# import chainlit as cl           # Chainlit framework for chat UI
-# from agents import AsyncOpenAI, OpenAIChatCompletionsModel, Runner, RunConfig
-
-# # Load environment variables (like API keys)
-# load_dotenv()
-
-# # Initialize the OpenAI-compatible async client with Gemini API key and base URL
-# external_client = AsyncOpenAI(
-#     api_key=os.getenv("GEMINI_API_KEY"),  # Fetch API key from environment variables
-#     base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-# )
-
-# # Initialize the OpenAI chat model with the async client
-# model = OpenAIChatCompletionsModel(
-#     model="gemini-2.5-flash",  # Specify model version
-#     openai_client=external_client,
-# )
-
-# # Configuration for running the agent, including model and client details
-# config = RunConfig(
-#     model=model,
-#     model_provider=external_client,
-#     tracing_disabled=True
-# )
-
-# # Triggered when the chat session starts
-# @cl.on_chat_start
-# async def start():
-#     await cl.Message(content="🌍 Welcome to the Travel Planner! Tell me how you're feeling or what kind of trip you'd like.").send()
-
-# # Triggered when the user sends a message
-# @cl.on_message
-# async def handle_user_message(message: cl.Message):
-#     user_input = message.content
-
-#     # Run the TravelPlannerAgent with the user's input
-#     result = Runner.run_sync(TravelPlannerAgent, user_input, run_config=config)
-
-#     # Send the final output from the agent
-#     await cl.Message(content=result.final_output).send()
-
-# main.py
-
-# ------------------------
-# Import required modules
-# ------------------------
-
-import os  # For accessing environment variables
-
-from travel_agents.main_travel_agent import TravelPlannerAgent  # Import the main orchestrating agent
-
-from dotenv import load_dotenv  # To load environment variables from a .env file
-import chainlit as cl           # Chainlit framework to build conversational UI
-from agents import AsyncOpenAI, OpenAIChatCompletionsModel, Runner, RunConfig  # Tools for agent execution
-
-# -----------------------------
-# Load environment variables
-# -----------------------------
-
-# Load API keys and other environment-specific settings from the .env file
-load_dotenv()
-
-# -----------------------------------------------------
-# Initialize OpenAI-compatible client with Gemini API
-# -----------------------------------------------------
-
-external_client = AsyncOpenAI(
-    api_key=os.getenv("GEMINI_API_KEY"),  # Safely load your Gemini API key from environment variables
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"  # Gemini-compatible endpoint
-)
-
-# ----------------------------------------
-# Configure the model using Gemini client
-# ----------------------------------------
-
-model = OpenAIChatCompletionsModel(
-    model="gemini-2.5-flash",  # Define the Gemini model version
-    openai_client=external_client,  # Set the Gemini client as the backend
-)
-
-# ---------------------------------------
-# Define agent runtime configuration
-# ---------------------------------------
-
-config = RunConfig(
-    model=model,  # Model to use for responses
-    model_provider=external_client,  # Underlying provider (Gemini)
-    tracing_disabled=True  # Disable debugging trace
-)
-
-# --------------------------------------------------
-# Triggered when the chat session is started
-# --------------------------------------------------
+import chainlit as cl
+from agents import Runner
+from config import config
+from travel_agents.main_travel_agent import TravelPlannerAgent  # Main orchestrating agent
 
 @cl.on_chat_start
 async def start():
-    # Send welcome message to the user when chat starts
+    # Initialize conversation history in user session
+    cl.user_session.set("history", [])
+    # Welcome message with warm tone and clear prompt
     await cl.Message(
-        content="🌍 Welcome to the Travel Planner! Tell me how you're feeling or what kind of trip you'd like."
+        "🌍 Hello! I'm your Travel Designer assistant. "
+        "Tell me how you're feeling or what kind of trip you'd like, "
+        "and I'll help you plan the perfect travel experience."
     ).send()
 
-# ---------------------------------------------------
-# Triggered when a user sends a message to the bot
-# ---------------------------------------------------
-
 @cl.on_message
-async def handle_user_message(message: cl.Message):
-    user_input = message.content  # Capture the user's message
+async def handle(message: cl.Message):
+    # Retrieve or initialize conversation history
+    history = cl.user_session.get("history", [])
 
-    # Pass the user input to the TravelPlannerAgent for processing
-    result = Runner.run_sync(TravelPlannerAgent, user_input, run_config=config)
+    # Append user message to conversation history
+    history.append({"role": "user", "content": message.content})
 
-    # Return the final result from the agent back to the user
-    await cl.Message(content=result.final_output).send()
+    # Send a thinking indicator message to the UI
+    thinking_msg = await cl.Message("💡 Thinking...").send()
+
+    try:
+        # Pass full conversation history to the agent for context-aware response
+        result = await Runner.run(
+            TravelPlannerAgent,
+            history,
+            run_config=config
+        )
+
+        # Extract assistant's reply
+        assistant_reply = result.final_output
+
+        # Update the thinking message with the assistant's actual response
+        thinking_msg.content = assistant_reply
+        await thinking_msg.update()
+
+        # Update conversation history with assistant's reply for next turn context
+        updated_history = result.to_input_list()
+        cl.user_session.set("history", updated_history)
+
+    except Exception as e:
+        # If error occurs, show error message instead of thinking indicator
+        thinking_msg.content = f"❌ Oops, something went wrong: {e}"
+        await thinking_msg.update()
